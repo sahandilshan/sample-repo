@@ -65,7 +65,8 @@ jobs:
           echo test, and deploy your project.
           
       - name: Assign issues with `bug` label to project 1
-      uses: sahandilshan/assign-one-project-github-action@v1
-      with:
-        who-to-greet: 'Mona the Octocat'
+        uses: sahandilshan/assign-one-project-github-action@v1
+        with:
+         who-to-greet: 'Mona the Octocat'
+       
           
