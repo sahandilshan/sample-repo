@@ -1,0 +1,71 @@
+name: Auto Assign to Project(s)
+
+on:
+  issues:
+    types: [labeled]
+
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to One Project
+    steps:
+#     - name: Assign Opened PR to `In Progress` column in Project 2
+#       uses: srggrs/assign-one-project-github-action@1.2.1
+#       if: github.event.action == 'opened'
+#       with:
+#         project: 'https://github.com/sahandilshan/test/projects/2'
+#         column_name: 'In Progress'
+
+    - name: Assign issues and pull requests with `bug` label to project 2
+      uses: srggrs/assign-one-project-github-action@1.2.1
+      if: |
+        contains(github.event.label.name, 'bug')
+      with:
+        project: 'https://github.com/sahandilshan/test/projects/2'
+        column_name: 'Labeled'
+
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  issues:
+    types: [ labeled ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+          
+      - name: Assign issues with `bug` label to project 1
+      uses: sahandilshan/assign-one-project-github-action@v1
+      with:
+        who-to-greet: 'Mona the Octocat'
+          
