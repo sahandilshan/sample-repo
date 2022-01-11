@@ -38,7 +38,7 @@ jobs:
       - name: Assign issues with `bug` label to project 1
         uses: sahandilshan/assign-one-project-github-action@v1
         with:
-         who-to-greet: 'Mona the Octocat'
-         project-url: 'https://github.com/sahandilshan/sample-repo/projects/1'
+         project: 'https://github.com/sahandilshan/sample-repo/projects/1'
+         column_name: 'test'
        
           
