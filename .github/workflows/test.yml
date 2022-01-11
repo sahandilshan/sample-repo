@@ -39,6 +39,6 @@ jobs:
         uses: sahandilshan/assign-one-project-github-action@v1
         with:
          project: 'https://github.com/sahandilshan/sample-repo/projects/1'
-         column_name: 'test'
+         column_name: 'Col_1'
        
           
