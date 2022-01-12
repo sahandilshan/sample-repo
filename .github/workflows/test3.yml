@@ -1,4 +1,4 @@
-name: CI
+name: CI_3
 
 # Controls when the workflow will run
 on:
@@ -32,6 +32,6 @@ jobs:
           echo test, and deploy your project.
           
       - name: Assign issues with `bug` label to project 1
-        run: bash entrypoin.sh "https://github.com/sahandilshan/sample-repo/projects/1" "Col_1" 
+        run: bash entrypoint.sh "https://github.com/sahandilshan/sample-repo/projects/1" "Col_1" 
        
           
