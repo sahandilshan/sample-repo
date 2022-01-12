@@ -7,8 +7,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  issues:
-    types: [ labeled, unlabeled ]
+  #issues:
+    #types: [ labeled, unlabeled ]
     
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
