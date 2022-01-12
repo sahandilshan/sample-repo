@@ -16,6 +16,17 @@ ISSUE_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.c
 
 PROJECT_URL=$1
 COLUMN_NAME=$2
+
+if [ -z "$PROJECT_URL" ]; then
+    echo "Please provide a project-url."
+    exit 1
+fi
+
+if [ -z "$COLUMN_NAME" ]; then
+    echo "Please provide the column name."
+    exit 1
+fi
+
 PROJECT_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/projects" \
 --header 'Accept: application/vnd.github.v3+json')
 PROJECT_ID=$(echo "$PROJECT_JSON" | jq -r ".[] | select(.html_url == \"$PROJECT_URL\").id")
@@ -35,10 +46,10 @@ if [ -z "$COLUMN_ID" ]; then
 fi
 
 # Add this issue to the project column
-    curl -s -X POST -u "$GITHUB_ACTOR:$GITHUB_TOKEN" --retry 3 \
-     -H 'Accept: application/vnd.github.v3+json' \
-     -d "{\"content_type\": \"Issue\", \"content_id\": $ISSUE_ID}" \
-     "https://api.github.com/projects/columns/$COLUMN_ID/cards"
+curl -s -X POST -u "$GITHUB_ACTOR:$GITHUB_TOKEN" --retry 3 \
+    -H 'Accept: application/vnd.github.v3+json' \
+    -d "{\"content_type\": \"Issue\", \"content_id\": $ISSUE_ID}" \
+    "https://api.github.com/projects/columns/$COLUMN_ID/cards"
 
 time=$(date)
 echo ::set-output name=time::$time
