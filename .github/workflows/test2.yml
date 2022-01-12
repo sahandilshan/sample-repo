@@ -4,7 +4,7 @@ name: CI_2
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   issues:
-    types: [ labeled, unlabeled ]
+    types: [ closed ]
     
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
