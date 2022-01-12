@@ -21,6 +21,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Assign issues with `bug` label to project 1
-        run: bash /scripts/entrypoint.sh "https://github.com/sahandilshan/sample-repo/projects/1" "Col_1" 
+        run: bash ./scripts/entrypoint.sh "https://github.com/sahandilshan/sample-repo/projects/1" "Col_1" 
        
           
