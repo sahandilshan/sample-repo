@@ -4,7 +4,7 @@ name: CI_3
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   issues:
-    types: [ unlabeled ]
+    types: [ labeled, unlabeled ]
     
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
