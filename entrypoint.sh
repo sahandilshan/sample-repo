@@ -14,8 +14,8 @@ ISSUE_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.c
 --header 'Accept: application/vnd.github.v3+json')
 
 
-PROJECT_URL=$INPUT_PROJECT
-COLUMN_NAME=$INPUT_COLUMN_NAME
+PROJECT_URL=$1
+COLUMN_NAME=$2
 PROJECT_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/projects" \
 --header 'Accept: application/vnd.github.v3+json')
 PROJECT_ID=$(echo "$PROJECT_JSON" | jq -r ".[] | select(.html_url == \"$PROJECT_URL\").id")
