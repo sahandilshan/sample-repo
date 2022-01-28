@@ -10,7 +10,7 @@ BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug"
 PEER_VERIFIED_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("Peer-Verified")) ]')
 ISSUE_STATE=$(jq -r '.issue.state' < "$GITHUB_EVENT_PATH")
 
-TRIG_LABEL=$(jq -r '.lable.name' < "$GITHUB_EVENT_PATH")
+TRIG_LABEL=$(jq -r '.label.name' < "$GITHUB_EVENT_PATH")
 
 echo "Issue State $ISSUE_STATE"
 echo "Issue State $PEER_VERIFIED_LABEL"
