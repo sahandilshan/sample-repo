@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
+echo "$GITHUB_EVENT_PATH" | jq '.'
+
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
 BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug")) ]')
