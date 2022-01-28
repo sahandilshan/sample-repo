@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
 echo "HERE"
-jq '.' "$GITHUB_EVENT_PATH"
+#jq '.' "$GITHUB_EVENT_PATH" #print  GITHUB_EVENT_PATH
 
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
@@ -13,10 +13,10 @@ ISSUE_STATE=$(jq -r '.issue.state' < "$GITHUB_EVENT_PATH")
 ADDED_LABEL=$(jq -r '.label.name' < "$GITHUB_EVENT_PATH")
 
 echo "Issue State $ISSUE_STATE"
-echo "Issue State $PEER_VERIFIED_LABEL"
+echo "Peer verified??? $PEER_VERIFIED_LABEL"
 echo "Workflow triggered by adding $ADDED_LABEL to the issue."
 
-if [ ADDED_LABEL != "bug"]; then
+if [ "$ADDED_LABEL" != "bug"]; then
     echo "Workflow triggered by adding '$ADDED_LABEL' label to the issue. Since this is not triggered by 'bug' label, ignoring this issue."
     exit 0
 fi
