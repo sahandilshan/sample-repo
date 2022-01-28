@@ -1,7 +1,6 @@
 #!/bin/sh -l
 
 echo "HERE"
-echo "$GITHUB_EVENT"
 jq '.' "$GITHUB_EVENT_PATH"
 
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
@@ -11,8 +10,13 @@ BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug"
 PEER_VERIFIED_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("Peer-Verified")) ]')
 ISSUE_STATE=$(jq -r '.issue.state' < "$GITHUB_EVENT_PATH")
 
+TRIG_LABEL=$(jq -r '.lable.name' < "$GITHUB_EVENT_PATH")
+
 echo "Issue State $ISSUE_STATE"
 echo "Issue State $PEER_VERIFIED_LABEL"
+echo "Workflow triggered by adding $TRIG_LABEL to the issue."
+
+exit 0
 
 if [ "$PEER_VERIFIED_LABEL" != "[]" ]; then
     echo "Issue is labeled with Peer-Verified. Hence not adding to the Project."
