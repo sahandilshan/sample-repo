@@ -13,7 +13,7 @@ ISSUE_STATE=$(jq -r '.issue.state' < "$GITHUB_EVENT_PATH")
 echo "Issue State $ISSUE_STATE"
 echo "Issue State $PEER_VERIFIED_LABEL"
 
-if [ "$PEER_VERIFIED_LABEL" == "[]" ]; then
+if [ "$PEER_VERIFIED_LABEL" != "[]" ]; then
     echo "Issue is labeled with Peer-Verified. Hence not adding to the Project."
     exit 0
 fi
