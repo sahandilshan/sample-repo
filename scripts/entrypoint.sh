@@ -16,7 +16,7 @@ echo "Issue State $ISSUE_STATE"
 echo "Peer verified??? $PEER_VERIFIED_LABEL"
 echo "Workflow triggered by adding $ADDED_LABEL to the issue."
 
-if [ "$ADDED_LABEL" == "[]" ]; then
+if [ "$ADDED_LABEL" != "bug" ]; then
     echo "Workflow triggered by adding '$ADDED_LABEL' label to the issue. Since this is not triggered by 'bug' label, ignoring this issue."
     exit 0
 fi
