@@ -10,23 +10,26 @@ BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug"
 PEER_VERIFIED_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("Peer-Verified")) ]')
 ISSUE_STATE=$(jq -r '.issue.state' < "$GITHUB_EVENT_PATH")
 
-TRIG_LABEL=$(jq -r '.label.name' < "$GITHUB_EVENT_PATH")
+ADDED_LABEL=$(jq -r '.label.name' < "$GITHUB_EVENT_PATH")
 
 echo "Issue State $ISSUE_STATE"
 echo "Issue State $PEER_VERIFIED_LABEL"
-echo "Workflow triggered by adding $TRIG_LABEL to the issue."
+echo "Workflow triggered by adding $ADDED_LABEL to the issue."
 
-exit 0
-
-if [ "$PEER_VERIFIED_LABEL" != "[]" ]; then
-    echo "Issue is labeled with Peer-Verified. Hence not adding to the Project."
+if [ ADDED_LABEL != "bug"]; then
+    echo "Workflow triggered by adding '$ADDED_LABEL' label to the issue. Since this is not triggered by 'bug' label, ignoring this issue."
     exit 0
 fi
 
-if [ "$BUG_LABEL" == "[]" ]; then
-    echo "Issue does not have the 'bug' label. Hence ignoring this issue."
-    exit 0
-fi
+#if [ "$PEER_VERIFIED_LABEL" != "[]" ]; then
+#    echo "Issue is labeled with Peer-Verified. Hence not adding to the Project."
+#    exit 0
+#fi
+
+#if [ "$BUG_LABEL" == "[]" ]; then
+#    echo "Issue does not have the 'bug' label. Hence ignoring this issue."
+#    exit 0
+#fi
 
 
 ISSUE_JSON=$(curl -s -X GET -u $GITHUB_ACTOR:$GITHUB_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$ISSUE_ID" \
