@@ -1,7 +1,9 @@
 #!/bin/sh -l
 
 echo "HERE"
-echo "$GITHUB_EVENT_PATH"
+echo "$GITHUB_EVENT_PATH" | jq '.'
+echo "HERE2"
+jq '.' "$GITHUB_EVENT_PATH"
 
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
