@@ -9,6 +9,16 @@ ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
 ISSUE_LABELS=$(jq -r '.issue.labels' < "$GITHUB_EVENT_PATH")
 BUG_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("bug")) ]')
 
+PEER_VERIFIED_LABEL=$(echo "$ISSUE_LABELS" | jq -c '[ .[] | select( .name | contains("Peer-Verified")) ]')
+ISSUE_STATE=$(jq -r '.issue.state' < "$GITHUB_EVENT_PATH")
+
+echo "Issue State $ISSUE_STATE"
+
+if [ "$PEER_VERIFIED_LABEL" == "[]" ]; then
+    echo "Issue is labeled with Peer-Verified. Hence not adding to the Project."
+    exit 0
+fi
+
 if [ "$BUG_LABEL" == "[]" ]; then
     echo "Issue does not have the 'bug' label. Hence ignoring this issue."
     exit 0
