@@ -1,6 +1,7 @@
 #!/bin/sh -l
 
 echo "HERE"
+echo "$GITHUB_EVENT"
 jq '.' "$GITHUB_EVENT_PATH"
 
 ISSUE_ID=$(jq -r '.issue.id' < "$GITHUB_EVENT_PATH")
